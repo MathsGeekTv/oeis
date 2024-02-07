@@ -8,9 +8,36 @@
 ///
 /// see [https://oeis.org/A000004](https://oeis.org/A000004)
 pub fn a000004(index: usize) -> usize {
-    return 0;
+    return 0 * index;
 }
 
+/// return The number of divisors of index
+/// This is known as tau(n)
+///
+/// see [https://oeis.org/A000005](https://oeis.org/A000005)
+pub fn a000005(index: usize) -> usize {
+    let mut i:usize = 2;
+    let mut num:usize = 1;
+    let mut n: usize = index;
+
+    while i * i <= index {
+        if n % i == 0 {
+            let mut e: usize = 0;
+            while index % i == 0 {
+                e += 1;
+                n = n / i;
+            }
+            num *= e + 1;
+        }
+        i += 1;
+    }
+
+    if n > 1 {
+        return num + num;
+    } else {
+        return num;
+    }
+}
 
 /// return the fibonacci at position index
 ///
@@ -31,6 +58,7 @@ pub fn a000045(index: usize) -> usize {
 
 pub fn a000045_cf(index: usize) -> usize {
 
+return index; // for now
 
 }
 
@@ -51,5 +79,12 @@ mod tests {
     fn fib_test() {
         assert_eq!(a000045(1), 1);
         assert_eq!(a000045(12), 144);
+    }
+
+    #[test]
+    fn div_test() {
+        assert_eq!(a000005(36),9);
+        assert_eq!(a000005(4),3);
+        assert_eq!(a000005(7),2);
     }
 }
